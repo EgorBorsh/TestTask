@@ -8,6 +8,10 @@ public class EntryPointGame : MonoBehaviour
 {
     [SerializeField]
     private CameraMove _cameraMove;
+    [SerializeField]
+    private MoveTextStart _panelStart;
+    [SerializeField]
+    private SpawnMap _spawnMap;
 
     private InitControlls _initControlls;
 
@@ -15,17 +19,21 @@ public class EntryPointGame : MonoBehaviour
     [Inject] private DiContainer _container;
 
     [Inject]
-    private void Contanier(IEventBusNotResult<Unit> eventsBusF)
+    private void Contanier(IEventBusNotResult<Unit> eventsBusU, IEventBusNotResult<float> eventsBusF)
     {
-        _eventsBusU = eventsBusF;
+        _eventsBusU = eventsBusU;
         _initControlls = new InitControlls();
 
-        _initControlls.Init(eventsBusF);
+        _initControlls.Init(eventsBusU, eventsBusF);
     }
 
 
     private async void Awake()
     {
+        _panelStart.Init();
+
+        await _spawnMap.Init(_container);
+
         AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync("Character");
         GameObject _character = await handle.Task;
 

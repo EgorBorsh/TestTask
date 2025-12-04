@@ -5,10 +5,10 @@ using Zenject;
 
 public class InitControlls: IDisposable
 {
-    InputControls _controlls;
-    IEventBusNotResult<Unit> _eventsBusF;
-    IEventBusResult<Unit, float> _eventsBusFR;
-    IEventBusResult<Unit, Vector2> _eventsBusFV2;
+    private InputControls _controlls;
+    private IEventBusNotResult<Unit> _eventsBusU;
+    private IEventBusNotResult<float> _eventsBusF;
+
     private CompositeDisposable _disposables = new CompositeDisposable();
 
     public void Dispose()
@@ -16,8 +16,9 @@ public class InitControlls: IDisposable
         _disposables.Dispose();
     }
 
-    public void Init(IEventBusNotResult<Unit> eventsBusF)
+    public void Init(IEventBusNotResult<Unit> eventsBusU, IEventBusNotResult<float> eventsBusF)
     {
+        _eventsBusU = eventsBusU;
         _eventsBusF = eventsBusF;
 
         _controlls = new InputControls();
@@ -28,11 +29,24 @@ public class InitControlls: IDisposable
 
     private void SetupCharacterControls()
     {
-        _controlls.Character.Touch.started += Move;
+        _controlls.Character.Touch.started += MoveTouch;
+        _controlls.Character.Swipe.performed += MoveSwipe;
     }
 
-    private void Move(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    private void MoveTouch(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        _eventsBusF.Publish(EventsName.CharacterMoveForward, Unit.Default);
+        _eventsBusU.Publish(EventsName.CharacterMoveForward, Unit.Default);
+    }
+
+    private void MoveSwipe(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        Vector2 value = context.ReadValue<Vector2>();
+        Debug.Log(value);
+
+        if(Math.Abs(value.x) > Math.Abs(value.y))
+            _eventsBusF.Publish(EventsName.CharacterMoveRightOrLeft, value.x);
+        else
+            if(value.y > 0)
+                _eventsBusU.Publish(EventsName.CharacterMoveForward, Unit.Default);
     }
 }

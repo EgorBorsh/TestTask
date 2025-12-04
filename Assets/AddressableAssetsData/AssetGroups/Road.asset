@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Road
+  m_EditorClassIdentifier: 
+  m_GroupName: Road
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d6748c5479373154cb711aa3336df588
+  m_SerializeEntries:
+  - m_GUID: e11eee75899138f4bac042d04a1d883f
+    m_Address: Assets/Models/KayKit_City_Builder_Bits_1.0_FREE/Assets/fbx (unity)/road_straight.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44ff65ed94c39ee4093d656ad53ea192
+    m_Address: Assets/Prefabs/Game/road_straight.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d54743020fe76634685a32388594b773
+    m_Address: Road
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8a2a502d3e80da4b8570eeb04da98d8
+    m_Address: Assets/Materials/Game/RoadDontMove.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 190ab5fd4da6aa648ae891727857760b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 85bddfa384ae76c4da4423ecfa48d9a0, type: 2}
+    - {fileID: 11400000, guid: 5fdcfb68f047b2843abc4fcf47af7776, type: 2}

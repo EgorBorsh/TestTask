@@ -9,4 +9,5 @@ public static class EventsName
      Название событий сцены Game
      */
     public const string CharacterMoveForward = "CharacterMoveForward";
+    public const string CharacterMoveRightOrLeft = "CharacterMoveRightOrLeft";
 }

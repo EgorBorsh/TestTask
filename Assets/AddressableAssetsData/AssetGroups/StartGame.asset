@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: StartGame
+  m_EditorClassIdentifier: 
+  m_GroupName: StartGame
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 77e2b9c181e39e345b8b8bd28ea67b50
+  m_SerializeEntries:
+  - m_GUID: b799e4e6a65811645be4765fb1f6d1e2
+    m_Address: StartGame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c6eae0268b82794292d5ba69d85b6bb
+    m_Address: Assets/Prefabs/Game/building_B.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccba1bc10d3beba429b12ac507f1141a
+    m_Address: Assets/Prefabs/Game/base.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 704afe1bca75b754595a6f1c5ab3a516
+    m_Address: Assets/Models/KayKit_City_Builder_Bits_1.0_FREE/Assets/fbx (unity)/base.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e593c98edc9b3814098f868ff3cf7a0b
+    m_Address: Assets/Models/KayKit_City_Builder_Bits_1.0_FREE/Assets/fbx (unity)/building_B.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 190ab5fd4da6aa648ae891727857760b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 07ad080adc06a9249a38209c7dc1ea69, type: 2}
+    - {fileID: 11400000, guid: 46d82b808cf569448a0f96f97c02f17e, type: 2}
