@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Character
+  m_EditorClassIdentifier: 
+  m_GroupName: Character
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 6ff4034b6f186e34e83fcb1d5ad314ea
+  m_SerializeEntries:
+  - m_GUID: 6d94abee4e7515341b806cfe2c135eca
+    m_Address: Character
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d34a34d46f7f4c9458eaa2ff2a040cbd
+    m_Address: Assets/Models/KayKit_Character_Animations_1.0/Animations/fbx/Rig_Medium/Idle_A.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4cd1a2044b24ed40878e333825794f3
+    m_Address: Assets/Models/KayKit_Character_Animations_1.0/Animations/fbx/Rig_Medium/Rig_Medium_GeneralAvatar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45ebbfc19ed513e48bf9915deb019280
+    m_Address: Assets/Models/KayKit_Character_Animations_1.0/Animations/fbx/Rig_Medium/Running_A.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bc09953a8e568348b281194ae89f32d
+    m_Address: Assets/Models/KayKit_Character_Animations_1.0/Animations/fbx/Rig_Medium/Rig_Medium_General.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1fce7feaff60304c8099508b89b6f41
+    m_Address: Assets/Aniamations/CharacterController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 190ab5fd4da6aa648ae891727857760b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 01355bf61b279614dbd8c5d5492b0c20, type: 2}
+    - {fileID: 11400000, guid: 39e3993def26fe24e85d9b76627b310b, type: 2}
