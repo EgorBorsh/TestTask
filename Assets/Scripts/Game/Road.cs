@@ -25,7 +25,7 @@ public class Road : MonoBehaviour
         AddObjectParticlePool(prefabObstcales, 1, 10);
 
         _isRight = Random.Range(0, 2);
-        _speedSpawn = Random.Range(1, 6);
+        _speedSpawn = Random.Range(2, 8);
         _speedObstacle = Random.Range(3, 9);
 
         Invoke("SpawnObstacle", _speedSpawn);
@@ -34,7 +34,7 @@ public class Road : MonoBehaviour
     private void SpawnObstacle()
     {
         Transform child = transform.GetChild(_isRight);
-        Obstacle obj = ManagerPool<Obstacle>.Spawn(prefabObstcales.GetComponent<Obstacle>(), child.position, child.localRotation);
+        Obstacle obj = ManagerPool<Obstacle>.Spawn(prefabObstcales.GetComponent<Obstacle>(), child.position, child.localRotation, transform);
 
         obj.SpeedMove = _speedObstacle;
         obj.SetDirection(_isRight == 0 ? Vector3.left : Vector3.right);
@@ -47,6 +47,12 @@ public class Road : MonoBehaviour
     {
         for (int i = 0; i < lenghtObject; i++)
             ManagerPool<Obstacle>.AddPool(objectPoolAdd).PopulatePool(objectPoolAdd, quantity, new Vector3(-100, 0, -100));
+    }
+
+    private void OnDestroy()
+    {
+        foreach(Obstacle child in GetComponentsInChildren<Obstacle>())
+            ManagerPool<Obstacle>.Despawn(child);
     }
 
 }

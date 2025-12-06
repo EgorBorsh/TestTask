@@ -13,12 +13,23 @@ public class SpawnMap : MonoBehaviour
     private float stepPos = 2f;
     private float startPos = 12f;
 
-    public async Task Init(DiContainer container)
+    private List<GameObject> roads = new List<GameObject>();
+    private List<GameObject> enemies = new List<GameObject>();
+
+    private AsyncOperationHandle<GameObject> handleStartGame;
+    private AsyncOperationHandle<GameObject> handleRoad;
+    private AsyncOperationHandle<GameObject> handleFinishMap;
+    private AsyncOperationHandle<GameObject> handleEnemy;
+
+    public async Task SpawnStartLevel(DiContainer container)
     {
-        AsyncOperationHandle<GameObject> handleStartGame = Addressables.InstantiateAsync("StartGame");
+
+        foreach (GameObject enemy in enemies) Destroy(enemy);
+        
+        handleStartGame = Addressables.InstantiateAsync("StartGame");
         GameObject startGame = await handleStartGame.Task;
 
-        AsyncOperationHandle<GameObject> handleRoad = Addressables.LoadAssetAsync<GameObject>("Road");
+        handleRoad = Addressables.LoadAssetAsync<GameObject>("Road");
         GameObject prefabRoad = await handleRoad.Task;
 
         for (int i = 0; i < roadCount; i++)
@@ -26,6 +37,36 @@ public class SpawnMap : MonoBehaviour
             GameObject road = Instantiate(prefabRoad);
             road.transform.position = new Vector3(0, 0, startPos + i * stepPos);
             road.GetComponent<Road>().Init();
+            roads.Add(road);
+        }
+
+        handleFinishMap = Addressables.InstantiateAsync("FinishMap");
+        GameObject finishMap = await handleFinishMap.Task;
+
+        finishMap.transform.position = new Vector3(0, 0, startPos + roadCount * stepPos);
+    }
+
+    public async Task SpawnFight(DiContainer container)
+    {
+        Addressables.ReleaseInstance(handleStartGame);
+        Addressables.ReleaseInstance(handleFinishMap);
+
+        foreach (GameObject road in roads) Destroy(road);
+
+        AsyncOperationHandle<GameObject> streetFight = Addressables.InstantiateAsync("FightStreet");
+
+        GameObject streetFightGameObject = await streetFight.Task;
+
+        streetFightGameObject.transform.position = Vector3.zero;
+
+        handleEnemy = Addressables.LoadAssetAsync<GameObject>("EnemyIdle");
+        GameObject prefabEnemy = await handleEnemy.Task;
+
+        foreach (PointSpawnEnemy point in streetFightGameObject.GetComponentsInChildren<PointSpawnEnemy>())
+        {
+            GameObject enemy = Instantiate(prefabEnemy);
+            enemy.transform.position = point.transform.position;
+            enemies.Add(enemy);
         }
     }
 }

@@ -58,7 +58,7 @@ public class CharacterMove : MonoBehaviour
 
         Vector3 dir = Quaternion.Euler(newRot) * Vector3.forward;
 
-        int layerMask = 1 << 7;
+        int layerMask = (1 << 7) | (1 << 10);
         bool blocked = Physics.Raycast(_rb.position, dir, _moveDistance, layerMask);
 
         Sequence seq = DOTween.Sequence();

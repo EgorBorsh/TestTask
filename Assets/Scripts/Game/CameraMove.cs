@@ -10,6 +10,7 @@ public class CameraMove : MonoBehaviour
     public void Init(Transform character)
     {
         _character = character;
+        transform.position = new Vector3(1.59f, 13.84f, -10.84f);
 
         GetComponent<CinemachineVirtualCamera>().LookAt = _character.transform;
         offsetX = transform.position.x - _character.position.x;

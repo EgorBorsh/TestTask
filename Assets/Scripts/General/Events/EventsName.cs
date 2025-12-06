@@ -10,4 +10,9 @@ public static class EventsName
      */
     public const string CharacterMoveForward = "CharacterMoveForward";
     public const string CharacterMoveRightOrLeft = "CharacterMoveRightOrLeft";
+
+    public const string EnebaleControl = "EnebaleControl";
+    public const string DisableControl = "DisableControl";
+
+    public const string LoadFight = "LoadFight";
 }

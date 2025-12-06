@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.TextCore.Text;
 using Zenject;
 
 public class EntryPointGame : MonoBehaviour
@@ -14,8 +16,10 @@ public class EntryPointGame : MonoBehaviour
     private SpawnMap _spawnMap;
 
     private InitControlls _initControlls;
+    private AsyncOperationHandle<GameObject> handle;
 
     private IEventBusNotResult<Unit> _eventsBusU;
+    private CompositeDisposable _disposables = new CompositeDisposable();
     [Inject] private DiContainer _container;
 
     [Inject]
@@ -25,20 +29,53 @@ public class EntryPointGame : MonoBehaviour
         _initControlls = new InitControlls();
 
         _initControlls.Init(eventsBusU, eventsBusF);
+
+        _eventsBusU.Subscribe(EventsName.LoadFight, Observer.Create<Unit>(LoadFight)).AddTo(_disposables);
     }
 
 
-    private async void Awake()
+    private void Awake()
     {
-        _panelStart.Init();
+        StartLevel();
+    }
 
-        await _spawnMap.Init(_container);
+    private async void StartLevel()
+    {
+        _eventsBusU.Publish(EventsName.DisableControl, Unit.Default);
+        _panelStart.StartAnim();
 
-        AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync("Character");
+        await _spawnMap.SpawnStartLevel(_container);
+
+        await CreateCharacter();
+
+        _panelStart.EndAnim();
+    }
+
+    private async void LoadFight(Unit nuit)
+    {
+        _eventsBusU.Publish(EventsName.DisableControl, Unit.Default);
+        Addressables.ReleaseInstance(handle);
+
+        _panelStart.StartAnim();
+
+        await _spawnMap.SpawnFight(_container);
+
+        await CreateCharacter();
+
+        _panelStart.EndAnim();
+    }
+    private async Task CreateCharacter()
+    {
+        handle = Addressables.InstantiateAsync("Character");
         GameObject _character = await handle.Task;
 
         _container.InjectGameObject(_character);
-
         _cameraMove.Init(_character.transform);
+
+    }
+
+    private void OnDestroy()
+    {
+        _disposables.Dispose();
     }
 }

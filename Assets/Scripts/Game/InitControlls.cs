@@ -22,9 +22,21 @@ public class InitControlls: IDisposable
         _eventsBusF = eventsBusF;
 
         _controlls = new InputControls();
-        _controlls.Enable();
 
         SetupCharacterControls();
+
+        _eventsBusU.Subscribe(EventsName.EnebaleControl, Observer.Create<Unit>(EnableControl)).AddTo(_disposables);
+        _eventsBusU.Subscribe(EventsName.DisableControl, Observer.Create<Unit>(DisableControl)).AddTo(_disposables);
+    }
+
+    private void EnableControl(Unit unit)
+    {
+        _controlls.Enable();
+    }
+
+    private void DisableControl(Unit unit)
+    {
+        _controlls.Disable();
     }
 
     private void SetupCharacterControls()
@@ -49,4 +61,6 @@ public class InitControlls: IDisposable
             if(value.y > 0)
                 _eventsBusU.Publish(EventsName.CharacterMoveForward, Unit.Default);
     }
+
+    
 }
