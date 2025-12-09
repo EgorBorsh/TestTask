@@ -3,7 +3,6 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.TextCore.Text;
 using Zenject;
 
 public class EntryPointGame : MonoBehaviour
@@ -37,37 +36,46 @@ public class EntryPointGame : MonoBehaviour
     private void Awake()
     {
         StartLevel();
+        //LoadFight(Unit.Default);
     }
 
     private async void StartLevel()
     {
-        _eventsBusU.Publish(EventsName.DisableControl, Unit.Default);
+        _eventsBusU.Publish(EventsName.EnabledFight, Unit.Default);
         _panelStart.StartAnim();
 
         await _spawnMap.SpawnStartLevel(_container);
 
-        await CreateCharacter();
+        await CreateCharacter(false);
 
         _panelStart.EndAnim();
     }
 
-    private async void LoadFight(Unit nuit)
+    private async void LoadFight(Unit unit)
     {
-        _eventsBusU.Publish(EventsName.DisableControl, Unit.Default);
-        Addressables.ReleaseInstance(handle);
+        _eventsBusU.Publish(EventsName.EnabledFight, Unit.Default);
+
+        if (handle.IsValid())
+            Addressables.ReleaseInstance(handle);
 
         _panelStart.StartAnim();
 
         await _spawnMap.SpawnFight(_container);
 
-        await CreateCharacter();
+        await CreateCharacter(true);
 
         _panelStart.EndAnim();
     }
-    private async Task CreateCharacter()
+    private async Task CreateCharacter(bool isFight)
     {
         handle = Addressables.InstantiateAsync("Character");
         GameObject _character = await handle.Task;
+
+        if (isFight)
+        {
+            _character.AddComponent<SearchFight>();
+            _character.AddComponent<SearcgChest>();
+        }
 
         _container.InjectGameObject(_character);
         _cameraMove.Init(_character.transform);

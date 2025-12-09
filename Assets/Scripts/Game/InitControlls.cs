@@ -1,7 +1,6 @@
 using System;
 using UniRx;
 using UnityEngine;
-using Zenject;
 
 public class InitControlls: IDisposable
 {
@@ -14,6 +13,11 @@ public class InitControlls: IDisposable
     public void Dispose()
     {
         _disposables.Dispose();
+
+        _controlls.CharacterMove.Touch.started -= MoveTouch;
+        _controlls.CharacterMove.Swipe.performed -= MoveSwipe;
+
+        _controlls.CharacterFight.Fight.performed -= KickTouch;
     }
 
     public void Init(IEventBusNotResult<Unit> eventsBusU, IEventBusNotResult<float> eventsBusF)
@@ -25,24 +29,39 @@ public class InitControlls: IDisposable
 
         SetupCharacterControls();
 
-        _eventsBusU.Subscribe(EventsName.EnebaleControl, Observer.Create<Unit>(EnableControl)).AddTo(_disposables);
-        _eventsBusU.Subscribe(EventsName.DisableControl, Observer.Create<Unit>(DisableControl)).AddTo(_disposables);
+        _eventsBusU.Subscribe(EventsName.EnebaleMove, Observer.Create<Unit>(EnableMove)).AddTo(_disposables);
+        _eventsBusU.Subscribe(EventsName.DisableMove, Observer.Create<Unit>(DisableMove)).AddTo(_disposables);
+        _eventsBusU.Subscribe(EventsName.EnabledFight, Observer.Create<Unit>(EnablesFight)).AddTo(_disposables);
     }
 
-    private void EnableControl(Unit unit)
+    private void EnableMove(Unit unit)
     {
-        _controlls.Enable();
+        _controlls.CharacterMove.Enable();
+        _controlls.CharacterFight.Disable();
     }
 
-    private void DisableControl(Unit unit)
+    private void DisableMove(Unit unit)
     {
-        _controlls.Disable();
+        _controlls.CharacterMove.Disable();
+    }
+
+    private void EnablesFight(Unit unit)
+    {
+        _controlls.CharacterFight.Enable();
+        _controlls.CharacterMove.Disable();
     }
 
     private void SetupCharacterControls()
     {
-        _controlls.Character.Touch.started += MoveTouch;
-        _controlls.Character.Swipe.performed += MoveSwipe;
+        _controlls.CharacterMove.Touch.started += MoveTouch;
+        _controlls.CharacterMove.Swipe.performed += MoveSwipe;
+
+        _controlls.CharacterFight.Fight.performed += KickTouch;
+    }
+
+    private void KickTouch(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        _eventsBusU.Publish(EventsName.CharacterKick, Unit.Default);
     }
 
     private void MoveTouch(UnityEngine.InputSystem.InputAction.CallbackContext context)

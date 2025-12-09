@@ -1131,6 +1131,7 @@ GameObject:
   - component: {fileID: 8088229605379902694}
   - component: {fileID: 2914238736524586122}
   - component: {fileID: -5605229589645116856}
+  - component: {fileID: -4375639413101056895}
   m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
@@ -1270,6 +1271,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b61bd3c58f7554486feb059135787f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4375639413101056895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6035428155337220496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e0263b652dab84f9254e59893e039b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameClipIdle: Idle_A
+  _nameClipFight: Attack
 --- !u!1 &6190344275440361306
 GameObject:
   m_ObjectHideFlags: 0

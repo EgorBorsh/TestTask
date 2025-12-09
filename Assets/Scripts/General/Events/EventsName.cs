@@ -10,9 +10,20 @@ public static class EventsName
      */
     public const string CharacterMoveForward = "CharacterMoveForward";
     public const string CharacterMoveRightOrLeft = "CharacterMoveRightOrLeft";
+    public const string CharacterKick = "CharacterKick";
 
-    public const string EnebaleControl = "EnebaleControl";
-    public const string DisableControl = "DisableControl";
+    public const string EnebaleMove = "EnebaleMove";
+    public const string DisableMove = "DisableMove";
+    public const string EnabledFight = "EnabledFight";
 
     public const string LoadFight = "LoadFight";
+    public const string ActivePanelFight = "ActivePanelFight";
+    public const string ActivePanelChest = "ActivePanelChest";
+
+    public const string EnemyLose = "EnemyLose";
+
+    public const string UpdateTextKey = "UpdateTextKey";
+
+    public const string PlayerWin = "PlayerWin";
+
 }

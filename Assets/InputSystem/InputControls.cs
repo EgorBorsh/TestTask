@@ -24,7 +24,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     ""name"": ""InputControls"",
     ""maps"": [
         {
-            ""name"": ""Character"",
+            ""name"": ""CharacterMove"",
             ""id"": ""72bde5eb-a9c6-4ebd-a8ee-9e418d95ad8a"",
             ""actions"": [
                 {
@@ -147,14 +147,56 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""CharacterFight"",
+            ""id"": ""7a20b062-7a9c-4e95-bf2f-5468d205c538"",
+            ""actions"": [
+                {
+                    ""name"": ""Fight"",
+                    ""type"": ""Button"",
+                    ""id"": ""eab5de88-79fb-44b6-ad2d-4524c8cf0ac2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""91ee54fd-c4bb-45a6-b02d-be5bbfc47ecb"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c42a646-0d1e-47b6-819a-e8445250ed8d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Character
-        m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
-        m_Character_Touch = m_Character.FindAction("Touch", throwIfNotFound: true);
-        m_Character_Swipe = m_Character.FindAction("Swipe", throwIfNotFound: true);
+        // CharacterMove
+        m_CharacterMove = asset.FindActionMap("CharacterMove", throwIfNotFound: true);
+        m_CharacterMove_Touch = m_CharacterMove.FindAction("Touch", throwIfNotFound: true);
+        m_CharacterMove_Swipe = m_CharacterMove.FindAction("Swipe", throwIfNotFound: true);
+        // CharacterFight
+        m_CharacterFight = asset.FindActionMap("CharacterFight", throwIfNotFound: true);
+        m_CharacterFight_Fight = m_CharacterFight.FindAction("Fight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -213,26 +255,26 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Character
-    private readonly InputActionMap m_Character;
-    private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
-    private readonly InputAction m_Character_Touch;
-    private readonly InputAction m_Character_Swipe;
-    public struct CharacterActions
+    // CharacterMove
+    private readonly InputActionMap m_CharacterMove;
+    private List<ICharacterMoveActions> m_CharacterMoveActionsCallbackInterfaces = new List<ICharacterMoveActions>();
+    private readonly InputAction m_CharacterMove_Touch;
+    private readonly InputAction m_CharacterMove_Swipe;
+    public struct CharacterMoveActions
     {
         private @InputControls m_Wrapper;
-        public CharacterActions(@InputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Touch => m_Wrapper.m_Character_Touch;
-        public InputAction @Swipe => m_Wrapper.m_Character_Swipe;
-        public InputActionMap Get() { return m_Wrapper.m_Character; }
+        public CharacterMoveActions(@InputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Touch => m_Wrapper.m_CharacterMove_Touch;
+        public InputAction @Swipe => m_Wrapper.m_CharacterMove_Swipe;
+        public InputActionMap Get() { return m_Wrapper.m_CharacterMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CharacterActions set) { return set.Get(); }
-        public void AddCallbacks(ICharacterActions instance)
+        public static implicit operator InputActionMap(CharacterMoveActions set) { return set.Get(); }
+        public void AddCallbacks(ICharacterMoveActions instance)
         {
-            if (instance == null || m_Wrapper.m_CharacterActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_CharacterActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_CharacterMoveActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CharacterMoveActionsCallbackInterfaces.Add(instance);
             @Touch.started += instance.OnTouch;
             @Touch.performed += instance.OnTouch;
             @Touch.canceled += instance.OnTouch;
@@ -241,7 +283,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Swipe.canceled += instance.OnSwipe;
         }
 
-        private void UnregisterCallbacks(ICharacterActions instance)
+        private void UnregisterCallbacks(ICharacterMoveActions instance)
         {
             @Touch.started -= instance.OnTouch;
             @Touch.performed -= instance.OnTouch;
@@ -251,24 +293,74 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Swipe.canceled -= instance.OnSwipe;
         }
 
-        public void RemoveCallbacks(ICharacterActions instance)
+        public void RemoveCallbacks(ICharacterMoveActions instance)
         {
-            if (m_Wrapper.m_CharacterActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_CharacterMoveActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(ICharacterActions instance)
+        public void SetCallbacks(ICharacterMoveActions instance)
         {
-            foreach (var item in m_Wrapper.m_CharacterActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_CharacterMoveActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_CharacterActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_CharacterMoveActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public CharacterActions @Character => new CharacterActions(this);
-    public interface ICharacterActions
+    public CharacterMoveActions @CharacterMove => new CharacterMoveActions(this);
+
+    // CharacterFight
+    private readonly InputActionMap m_CharacterFight;
+    private List<ICharacterFightActions> m_CharacterFightActionsCallbackInterfaces = new List<ICharacterFightActions>();
+    private readonly InputAction m_CharacterFight_Fight;
+    public struct CharacterFightActions
+    {
+        private @InputControls m_Wrapper;
+        public CharacterFightActions(@InputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Fight => m_Wrapper.m_CharacterFight_Fight;
+        public InputActionMap Get() { return m_Wrapper.m_CharacterFight; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CharacterFightActions set) { return set.Get(); }
+        public void AddCallbacks(ICharacterFightActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CharacterFightActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CharacterFightActionsCallbackInterfaces.Add(instance);
+            @Fight.started += instance.OnFight;
+            @Fight.performed += instance.OnFight;
+            @Fight.canceled += instance.OnFight;
+        }
+
+        private void UnregisterCallbacks(ICharacterFightActions instance)
+        {
+            @Fight.started -= instance.OnFight;
+            @Fight.performed -= instance.OnFight;
+            @Fight.canceled -= instance.OnFight;
+        }
+
+        public void RemoveCallbacks(ICharacterFightActions instance)
+        {
+            if (m_Wrapper.m_CharacterFightActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICharacterFightActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CharacterFightActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CharacterFightActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CharacterFightActions @CharacterFight => new CharacterFightActions(this);
+    public interface ICharacterMoveActions
     {
         void OnTouch(InputAction.CallbackContext context);
         void OnSwipe(InputAction.CallbackContext context);
+    }
+    public interface ICharacterFightActions
+    {
+        void OnFight(InputAction.CallbackContext context);
     }
 }

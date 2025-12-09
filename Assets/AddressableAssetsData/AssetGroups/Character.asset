@@ -47,6 +47,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4adda1827cdf3446bcaa037e3aa44bd
+    m_Address: Assets/Models/KayKit_Character_Animations_1.0/Animations/fbx/Rig_Medium/Attack.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 190ab5fd4da6aa648ae891727857760b, type: 2}
   m_SchemaSet:

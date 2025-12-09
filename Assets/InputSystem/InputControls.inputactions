@@ -2,7 +2,7 @@
     "name": "InputControls",
     "maps": [
         {
-            "name": "Character",
+            "name": "CharacterMove",
             "id": "72bde5eb-a9c6-4ebd-a8ee-9e418d95ad8a",
             "actions": [
                 {
@@ -123,6 +123,45 @@
                     "action": "Swipe",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "CharacterFight",
+            "id": "7a20b062-7a9c-4e95-bf2f-5468d205c538",
+            "actions": [
+                {
+                    "name": "Fight",
+                    "type": "Button",
+                    "id": "eab5de88-79fb-44b6-ad2d-4524c8cf0ac2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "91ee54fd-c4bb-45a6-b02d-be5bbfc47ecb",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c42a646-0d1e-47b6-819a-e8445250ed8d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

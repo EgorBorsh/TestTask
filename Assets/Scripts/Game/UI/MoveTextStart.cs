@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -34,7 +32,7 @@ public class MoveTextStart : MonoBehaviour
             .OnComplete(() =>
             {
                 gameObject.SetActive(false);
-                _eventsBusU.Publish(EventsName.EnebaleControl, Unit.Default);
+                _eventsBusU.Publish(EventsName.EnebaleMove, Unit.Default);
             });
     }
 }

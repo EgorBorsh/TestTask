@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -34,7 +32,13 @@ public class CharacterMove : MonoBehaviour
 
         _eventsBusU.Subscribe(EventsName.CharacterMoveForward, Observer.Create<Unit>(MoveForward)).AddTo(_disposables);
         _eventsBusF.Subscribe(EventsName.CharacterMoveRightOrLeft, Observer.Create<float>(MoveRightOrLeft)).AddTo(_disposables);
+        _eventsBusU.Subscribe(EventsName.EnabledFight, Observer.Create<Unit>(KillMove)).AddTo(_disposables);
+    }
 
+    private void KillMove(Unit unit)
+    {
+        DOTween.Kill(_rb);
+        DOTween.Kill(transform);
     }
 
     public void MoveForward(Unit unit)
@@ -58,9 +62,8 @@ public class CharacterMove : MonoBehaviour
 
         Vector3 dir = Quaternion.Euler(newRot) * Vector3.forward;
 
-        int layerMask = (1 << 7) | (1 << 10);
-        bool blocked = Physics.Raycast(_rb.position, dir, _moveDistance, layerMask);
-
+        int layerMask7 = (1 << 7) | (1 << 10) | (1 << 11);
+        bool blocked = Physics.Raycast(_rb.position, dir, _moveDistance, layerMask7);
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DORotate(newRot, 0.1f));
 
@@ -68,8 +71,8 @@ public class CharacterMove : MonoBehaviour
         {
             Vector3 newPos = _rb.position + dir * _moveDistance;
 
-            _animator.Play(_nameClipMove);
-            seq.Append(_rb.DOMove(newPos, 0.25f).SetEase(Ease.Linear));
+            _animator?.Play(_nameClipMove);
+            seq.Append(_rb?.DOMove(newPos, 0.25f).SetEase(Ease.Linear));
         }
         else
         {
@@ -78,7 +81,7 @@ public class CharacterMove : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            _animator.Play(_nameClipIdle);
+            _animator?.Play(_nameClipIdle);
             _isMoving = false;
         });
     }
@@ -90,6 +93,8 @@ public class CharacterMove : MonoBehaviour
 
     private void OnDestroy()
     {
+        DOTween.Kill(_rb);
+        DOTween.Kill(transform);
         _disposables.Dispose();
     }
 }

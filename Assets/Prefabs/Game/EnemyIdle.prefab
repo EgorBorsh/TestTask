@@ -1394,6 +1394,8 @@ GameObject:
   - component: {fileID: 3390532779310271177}
   - component: {fileID: 484675813284691647}
   - component: {fileID: 5871640826190039004}
+  - component: {fileID: -8931383757120529062}
+  - component: {fileID: 6736003060642363614}
   m_Layer: 10
   m_Name: EnemyIdle
   m_TagString: Untagged
@@ -1436,7 +1438,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c66519e52a9995b49b9beaa0643b62e3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1464,9 +1466,35 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-8931383757120529062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607751937093220250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e44558dc507c6448c12915adf8197b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameClipIdle: EnemyIdle
+  _nameClipFight: EnemyKick
+--- !u!114 &6736003060642363614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607751937093220250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508f7599eaaf121468598bf553620fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8884735615615444488
 GameObject:
   m_ObjectHideFlags: 0
