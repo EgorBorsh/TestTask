@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class StartUnlockedChest : MonoBehaviour
 {
@@ -18,8 +20,18 @@ public class StartUnlockedChest : MonoBehaviour
     private Color _currentColorLock;
     private int _currentIndexColor;
 
+
+    private IEventBusNotResult<Unit> _eventsBusU;
+
+    [Inject]
+    private void Contanier(IEventBusNotResult<Unit> eventsBusU)
+    {
+        _eventsBusU = eventsBusU;
+    }
+
     private void Start()
     {
+
         _buttonChestOpen.onClick.AddListener(() =>
         {
             _panelLockAndKey.SetActive(true);
@@ -42,12 +54,13 @@ public class StartUnlockedChest : MonoBehaviour
                 keys.Remove(keys[rand]);
             }
 
-            foreach(UIKey key in keys)
+            foreach (UIKey key in keys)
             {
                 int index = Random.Range(0, _colors.Length);
                 key.GetComponent<Image>().color = _colors[index];
                 key.GetComponent<IKeyOrLock>().IndexColor = index;
             }
+            _eventsBusU.Publish(EventsName.DisableMove, Unit.Default);
         });
     }
 }

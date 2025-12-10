@@ -11,6 +11,8 @@ public static class EventsName
     public const string CharacterMoveForward = "CharacterMoveForward";
     public const string CharacterMoveRightOrLeft = "CharacterMoveRightOrLeft";
     public const string CharacterKick = "CharacterKick";
+    public const string CharacterDie = "CharacterDie";
+    public const string CharacterKillMove = "CharacterKillMove";
 
     public const string EnebaleMove = "EnebaleMove";
     public const string DisableMove = "DisableMove";

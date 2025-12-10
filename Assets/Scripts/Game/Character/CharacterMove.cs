@@ -15,6 +15,7 @@ public class CharacterMove : MonoBehaviour
 
     private Rigidbody _rb;
     private Animator _animator;
+    private Sequence seq;
     private bool _isMoving = false;
 
     private IEventBusNotResult<Unit> _eventsBusU;
@@ -33,10 +34,12 @@ public class CharacterMove : MonoBehaviour
         _eventsBusU.Subscribe(EventsName.CharacterMoveForward, Observer.Create<Unit>(MoveForward)).AddTo(_disposables);
         _eventsBusF.Subscribe(EventsName.CharacterMoveRightOrLeft, Observer.Create<float>(MoveRightOrLeft)).AddTo(_disposables);
         _eventsBusU.Subscribe(EventsName.EnabledFight, Observer.Create<Unit>(KillMove)).AddTo(_disposables);
+        _eventsBusU.Subscribe(EventsName.CharacterKillMove, Observer.Create<Unit>(KillMove)).AddTo(_disposables);
     }
 
-    private void KillMove(Unit unit)
+    void KillMove(Unit unit)
     {
+        seq.Kill();
         DOTween.Kill(_rb);
         DOTween.Kill(transform);
     }
@@ -64,7 +67,7 @@ public class CharacterMove : MonoBehaviour
 
         int layerMask7 = (1 << 7) | (1 << 10) | (1 << 11);
         bool blocked = Physics.Raycast(_rb.position, dir, _moveDistance, layerMask7);
-        Sequence seq = DOTween.Sequence();
+        seq = DOTween.Sequence();
         seq.Append(transform.DORotate(newRot, 0.1f));
 
         if (!blocked)

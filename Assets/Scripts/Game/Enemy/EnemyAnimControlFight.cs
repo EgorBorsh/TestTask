@@ -36,7 +36,8 @@ public class EnemyAnimControlFight : MonoBehaviour
 
     private void AnimIdle(Unit unit)
     {
-        _animator?.Play(_nameClipIdle);
+        if(!GetComponent<EnemyDestroy>().IsDie)
+            _animator?.Play(_nameClipIdle);
     }
 
     private void OnDestroy()

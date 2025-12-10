@@ -42,7 +42,7 @@ public class EntryPointGame : MonoBehaviour
     private async void StartLevel()
     {
         _eventsBusU.Publish(EventsName.EnabledFight, Unit.Default);
-        _panelStart.StartAnim();
+        _panelStart.StartAnim("Obstacle level");
 
         await _spawnMap.SpawnStartLevel(_container);
 
@@ -58,7 +58,7 @@ public class EntryPointGame : MonoBehaviour
         if (handle.IsValid())
             Addressables.ReleaseInstance(handle);
 
-        _panelStart.StartAnim();
+        _panelStart.StartAnim("Level of fight");
 
         await _spawnMap.SpawnFight(_container);
 
@@ -80,6 +80,7 @@ public class EntryPointGame : MonoBehaviour
         _container.InjectGameObject(_character);
         _cameraMove.Init(_character.transform);
 
+        _character.transform.localEulerAngles = new Vector3(0, 180, 0);
     }
 
     private void OnDestroy()

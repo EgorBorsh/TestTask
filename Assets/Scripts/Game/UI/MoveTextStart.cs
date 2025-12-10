@@ -2,10 +2,12 @@ using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using TMPro;
 
 public class MoveTextStart : MonoBehaviour
 {
-
+    [SerializeField]
+    private TMP_Text _text;
     private IEventBusNotResult<Unit> _eventsBusU;
 
     [Inject]
@@ -14,8 +16,11 @@ public class MoveTextStart : MonoBehaviour
         _eventsBusU = eventsBusU;
     }
 
-    public void StartAnim()
+    public void StartAnim(string text)
     {
+        if(_text != null)
+            _text.text = text;
+
         gameObject.SetActive(true);
 
         transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector2(-1533, 715);

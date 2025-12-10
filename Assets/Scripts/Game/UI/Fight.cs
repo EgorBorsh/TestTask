@@ -42,7 +42,7 @@ public class Fight : MonoBehaviour
     private void AddSliderValue(Unit unit)
     {
         if(_sliderFight != null)
-            _sliderFight.value += 0.05f;
+            _sliderFight.value += 0.03f;
     }
 
     private void OnEnable()
@@ -64,7 +64,10 @@ public class Fight : MonoBehaviour
             }
 
             if(_sliderFight.value == 0)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            {
+                _eventsBusU.Publish(EventsName.DisableMove, Unit.Default);
+                _eventsBusU.Publish(EventsName.CharacterDie, Unit.Default);
+            }
 
             _sliderFight.value -= Time.deltaTime / _durationLose;
         }
@@ -83,9 +86,9 @@ public class Fight : MonoBehaviour
     {
         int rand = Random.Range(0, 100);
 
-        if (rand < 33) _durationLose = 30f;
-        if (rand >= 33  && rand < 66) _durationLose = 20f;
-        if (rand >= 66) _durationLose = 10f;
+        if (rand < 33) _durationLose = 10f;
+        if (rand >= 33  && rand < 66) _durationLose = 8f;
+        if (rand >= 66) _durationLose = 4f;
     }
 
     private void OnDisable()
