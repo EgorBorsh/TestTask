@@ -28,6 +28,5 @@
 - **UniRx** — реактивные события  
 - **DOTween** — анимации и твины  
 - **Addressables** — управление ресурсами  
----
 
 © TestTask Project, Unity *2022.3.12*
